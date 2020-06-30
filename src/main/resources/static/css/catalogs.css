@@ -1,0 +1,116 @@
+.catalogForm{
+    width: 600px;
+    height: 120px;
+    margin: 30px auto;
+    padding: 15px;
+    text-align: center;
+    background: #161A1E;
+    border: 1px solid #D5D5D5;
+}
+
+.catalogForm h2{
+    margin: 0 0 15px 0;
+    color: #9EC6FA;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.catalogForm .error{
+    color: #FAD29E;
+    text-align: center;
+    margin: 50px 0 0 0;
+}
+
+.catalogForm label, .catalogForm input{
+    float: left;
+    width: 175px;
+    margin: 0 9px;
+}
+
+label{
+    color: #D5D5D5;
+    line-height: 35px;
+}
+
+input[type="text"]{
+    outline: 0 !important;
+    height: 33px;
+    font: 14pt Monospace;
+    padding: 0 5px;
+    background: #D5D5D5;
+    border: 1px solid #42454C;
+}
+
+input[type="submit"]{
+    font: 18pt Corbel;
+    height: 35px;
+    background: #9EC6FA;
+    border: 1px solid #42454C;
+}
+
+input[type="text"]:hover, input[type="submit"]:hover{
+    border: 1px solid #D5D5D5;
+}
+
+#catalogList{
+    margin: 30px auto;
+}
+
+#catalogList ul{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+}
+
+#catalogList ul li{
+    list-style-type: none;
+    height: 200px;
+    width: 200px;
+    margin: 10px auto;
+}
+
+#catalogList ul li a{
+    display: block;
+    width: 100%;
+    height: 175px;
+    color: #161A1E;
+    line-height: 200px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#catalogList ul li a:hover{
+    color: #D5D5D5;
+}
+
+#catalogList ul li .functional{
+    width: 100%;
+    height: 25px;
+    text-align: center;
+}
+
+#catalogList ul li .functional a{
+    color: #D5D5D5;
+    height: 25px;
+    width: 90px;
+    line-height: 25px;
+    font-size: 14pt;
+    display: inline-block;
+}
+
+#catalogList ul li .functional a:hover{
+    color: #9EC6FA;
+    text-decoration: underline;
+}
+
+.fullCatalog{
+    background: url(../images/catalog/fullCatalog.png) no-repeat;
+    /*background: #D5D5D5;
+    border: 1px solid #9EC6FA;*/
+}
+
+.emptyCatalog{
+    background: url(../images/catalog/emptyCatalog.png) no-repeat;
+    /*background: #D5D5D5;
+    border: 1px solid #9EC6FA;*/
+}

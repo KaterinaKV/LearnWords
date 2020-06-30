@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/form.css}" rel="stylesheet" type="text/css">
+    <title>SingIn</title>
+</head>
+<body>
+<header th:insert="~{fragments/header :: menu}"></header>
+
+<form method="POST" th:action="@{/login}" th:object="${userDto}" id="login">
+    <h2>Authorization</h2>
+    <label for="username">Input username </label>
+    <input type="text" id="username" th:field="*{username}"/>
+    </br>
+    <label for="password">Input password </label>
+    <input type="text" id="password" th:field="*{password}"/>
+    <p class="error" th:text="${error}"></p>
+    <input type="submit" value="Log In"/>
+</form>
+
+</body>
+</html>

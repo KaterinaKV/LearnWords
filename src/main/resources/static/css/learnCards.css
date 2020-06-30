@@ -1,0 +1,33 @@
+#card{
+    display: flex;
+    margin: 50px auto;
+    width: 350px;
+    height: 200px;
+
+    background: #D5D5D5;
+    border: 2px solid #42454C;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+}
+
+#card p{
+    margin: auto;
+    color: #161A1E;
+    font: 32pt Monospace;
+}
+
+#buttons{
+    width: 400px;
+    margin: 50px auto;
+}
+
+#buttons button{
+    width: 150px;
+    height: 50px;
+    font: 18pt Corbel;
+    margin: 0 23.5px;
+    background: #9EC6FA;
+    border: 2px solid #42454C;
+}
+
+/*
+century gothic*/
