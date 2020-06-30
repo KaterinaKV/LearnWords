@@ -5,33 +5,27 @@ html{
     font: 18pt Corbel;
     background: #42454C;
 }
-
 body{
     padding:0;
     margin:0;
 }
-
 a{
     text-decoration: none;
     color: #D5D5D5;
     cursor: pointer;
 }
-
 a:hover{
     color: #9EC6FA;
 }
-
 header{
     display: flex;
     height: 50px;
     background: #161A1E;
 }
-
-header  img {
+header img {
     width: 150px;
     height: 50px;
 }
-
 header > a{
     width: 150px;
     text-align: center;
@@ -39,21 +33,22 @@ header > a{
     color: #D5D5D5;
     border-right: 1px solid #D5D5D5;
 }
-
 #logout{
-    flex-grow: 1;
     text-align: right;
-    padding: 0 30px;
+    padding-right: 30px;
+    width: 100px;
     border: none;
 }
-
+.blank{
+    flex: 1 1 0%;
+}
 h1{
     text-align: center;
     color: #9EC6FA;
 }
-
 p{
-    text-align: justice;
+    text-align: justify;
     color: #D5D5D5;
-    padding: 10px 20px;
+    margin: 10px;
+    text-indent: 2em;
 }

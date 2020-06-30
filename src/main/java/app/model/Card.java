@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,8 +25,10 @@ public class Card {
     @SequenceGenerator(name = "cards_id", sequenceName = "seq_cards", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cards_id")
     private long id;
+
     @NonNull
     private String word;
+
     @NonNull
     private String translation;
     private String transcription;

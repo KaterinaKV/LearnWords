@@ -54,7 +54,6 @@ public class ImplCardService implements CardService {
 
         checkValid(cardToUpdate);
         cardRepository.save(convertToEntity(cardToUpdate));
-
     }
 
     @Override
@@ -97,8 +96,10 @@ public class ImplCardService implements CardService {
     }
 
     private void checkValid(CardDto cardDto) {
-        if (cardDto.getWord().isEmpty() || cardDto.getTranslation().isEmpty()) {
-            throw new InvalidInputDataException("The \"Word\" and \"Translation\" fields must be filled in.");
+        if (cardDto.getWord().isEmpty()) {
+            throw new InvalidInputDataException("Word is required.");
+        } else if (cardDto.getTranslation().isEmpty()) {
+            throw new InvalidInputDataException("Translation is required.");
         } else if (!cardDto.getWord().matches("[a-zA-Zа-яА-ЯёЁ\\s]{1,100}")) {
             throw new InvalidInputDataException("The \"Word\" field contains unauthorized symbols.");
         } else if (!cardDto.getTranslation().matches("[a-zA-Zа-яА-ЯёЁ\\s]{1,100}")) {
@@ -117,6 +118,5 @@ public class ImplCardService implements CardService {
             }
         }
         return false;
-
     }
 }

@@ -16,8 +16,6 @@ public interface CatalogService {
 
     void delete(CatalogDto catalogDto);
 
-    List<CatalogDto> findAll();
-
     List<CatalogDto> findAllByUser(UserDto userDto);
 
     CatalogDto convertToDto(Catalog catalog);

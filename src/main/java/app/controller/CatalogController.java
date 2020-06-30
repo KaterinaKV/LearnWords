@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/catalog")
 public class CatalogController {
@@ -30,7 +32,7 @@ public class CatalogController {
     }
 
     @GetMapping
-    public String getCatalogPage(Model model, @AuthenticationPrincipal UserDto userDto) {
+    public String getCatalogsPage(Model model, @AuthenticationPrincipal UserDto userDto) {
         model.addAttribute("catalogDto", new CatalogDto());
         model.addAttribute("catalogList", catalogService.findAllByUser(userDto));
         return "catalogs";
@@ -73,7 +75,7 @@ public class CatalogController {
         try {
             catalogDto.setUserDto(userDto);
             catalogService.update(catalogDto);
-            return "redirect:/catalog"; /*/show?catalogName=" + catalogDto.getName();*/
+            return "redirect:/catalog";
         } catch (InvalidInputDataException ex) {
             model.addAttribute("error", ex.getMessage());
             model.addAttribute("catalogList", catalogService.findAllByUser(userDto));
@@ -88,4 +90,27 @@ public class CatalogController {
         return "redirect:/catalog";
     }
 
+    @GetMapping("/learn")
+    public String processLearnCards(Model model, @AuthenticationPrincipal UserDto userDto,
+                            @RequestParam(value = "catalogName") String catalogName,
+                            @RequestParam(value = "i", required = false) Integer i,
+                            @RequestParam(value = "isWord", required = false) Boolean isWord) {
+        CatalogDto catalogDto = catalogService.findByNameAndUser(catalogName, userDto);
+        List<CardDto> cardList = cardService.findAllByCatalog(catalogDto);
+        model.addAttribute("catalogName", catalogName);
+        if (i == null) {
+            model.addAttribute("isWord", true);
+            model.addAttribute("card", cardList.get(0));
+            model.addAttribute("i", 0);
+        } else {
+            model.addAttribute("isWord", isWord);
+            if (cardList.size()<=i){
+                model.addAttribute("error", "Catalog cards are finished");
+            } else {
+                model.addAttribute("card", cardList.get(i));
+                model.addAttribute("i", i);
+            }
+        }
+        return "learnCard";
+    }
 }

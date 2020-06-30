@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
-
 @Controller
 @RequestMapping("/catalog/card")
 public class CardController {
@@ -32,64 +30,60 @@ public class CardController {
     }
 
     @GetMapping("/add")
-    public String showAddWordForm(Model model, @RequestParam("catalogName") String catalogName) {
+    public String getCatalogPage(Model model, @RequestParam("catalogName") String catalogName) {
         model.addAttribute("catalogName", catalogName);
         model.addAttribute("cardDto", new CardDto());
         return "catalog";
     }
 
     @PostMapping("/add")
-    public String processAddWord(Model model, @AuthenticationPrincipal UserDto userDto,
+    public String processAddCard(Model model, @AuthenticationPrincipal UserDto userDto,
                                  @RequestParam("catalogName") String catalogName,
                                  @ModelAttribute("cardDto") CardDto cardDto) {
+        CatalogDto catalogDto = catalogService.findByNameAndUser(catalogName, userDto);
         try {
-            cardDto.setCatalogDto(catalogService.findByNameAndUser(catalogName, userDto));
+            cardDto.setCatalogDto(catalogDto);
             cardService.add(cardDto);
             return "redirect:/catalog/show?catalogName=" + catalogName;
         } catch (InvalidInputDataException ex) {
-            model.addAttribute("cardList", cardService.findAllByCatalog(catalogService.findByNameAndUser(catalogName, userDto)));
+            model.addAttribute("cardList", cardService.findAllByCatalog(catalogDto));
             model.addAttribute("catalogName", catalogName);
             model.addAttribute("error", ex.getMessage());
-
             return "catalog";
         }
     }
 
     @GetMapping("/update")
-    public String updateCard(Model model, @RequestParam("id") long id) {
-
-        CatalogDto catalogDto = cardService.findById(id).getCatalogDto();
-        model.addAttribute("cardList", cardService.findAllByCatalog(
-                catalogService.findByNameAndUser(catalogDto.getName(), catalogDto.getUserDto())));
-        model.addAttribute("cardDto", cardService.findById(id));
+    public String getUpdateCardForm(Model model, @RequestParam("id") long id) {
+        CardDto cardToUpdate = cardService.findById(id);
+        CatalogDto catalogDto = cardToUpdate.getCatalogDto();
+        model.addAttribute("cardList", cardService.findAllByCatalog(catalogDto));
+        model.addAttribute("cardDto", cardToUpdate);
         model.addAttribute("catalogName", catalogDto.getName());
         return "catalog";
     }
 
     @PostMapping("/update")
-    public String processUpdate(Model model, @AuthenticationPrincipal UserDto userDto,
-                                @ModelAttribute("cardDto") CardDto cardDto,
-                                @RequestParam("catalogName") String catalogName) {
+    public String processUpdateCard(Model model, @AuthenticationPrincipal UserDto userDto,
+                                    @ModelAttribute("cardDto") CardDto cardDto,
+                                    @RequestParam("catalogName") String catalogName) {
+        CatalogDto catalogDto = catalogService.findByNameAndUser(catalogName, userDto);
         model.addAttribute("catalogName", catalogName);
         try {
-            cardDto.setCatalogDto(catalogService.findByNameAndUser(catalogName, userDto));
+            cardDto.setCatalogDto(catalogDto);
             cardService.update(cardDto);
             return "redirect:/catalog/show?catalogName=" + cardDto.getCatalogDto().getName();
         } catch (InvalidInputDataException ex) {
-            CatalogDto catalogDto = cardService.findById(cardDto.getId()).getCatalogDto();
-            model.addAttribute("cardList", cardService.findAllByCatalog(
-                    catalogService.findByNameAndUser(catalogDto.getName(), catalogDto.getUserDto())));
-            model.addAttribute("message", ex.getMessage());
+            model.addAttribute("cardList", cardService.findAllByCatalog(catalogDto));
             model.addAttribute("error", ex.getMessage());
             return "catalog";
         }
     }
 
     @GetMapping("/delete")
-    public String deleteCard(Model model, @RequestParam("id") long id) {
+    public String processDeleteCard(@RequestParam("id") long id) {
         String catalogName = cardService.findById(id).getCatalogDto().getName();
         cardService.delete(id);
         return "redirect:/catalog/show?catalogName=" + catalogName;
     }
-
 }

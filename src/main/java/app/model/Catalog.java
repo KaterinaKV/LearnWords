@@ -1,7 +1,5 @@
 package app.model;
 
-import app.dto.CardDto;
-import app.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,11 +25,13 @@ import java.util.List;
 @Entity
 @Table(name = "catalogs")
 public class Catalog {
+
     @Id
     @SequenceGenerator(name = "catalogs_id", sequenceName = "seq_catalogs", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "catalogs_id")
     @NonNull
     private long id;
+
     @NonNull
     private String name;
 
@@ -40,7 +40,7 @@ public class Catalog {
 
     @NonNull
     @ManyToOne
-    @JoinColumn(name="catalogList")
+    @JoinColumn(name = "catalogList")
     private User user;
 
 }

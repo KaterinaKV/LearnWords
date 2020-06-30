@@ -2,36 +2,34 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link th:href="@{css/style.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{css/learnCards.css}" rel="stylesheet" type="text/css">
-    <title>LearnWordsOnCards</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/learnCards.css}" rel="stylesheet" type="text/css">
+    <title>Learn Cards</title>
 </head>
 <body>
 <header th:insert="~{fragments/header :: menu}"></header>
 <main>
-    <th:block th:if="${card == null}">
-        <p>Choose word to learn</p>
-        <th:block th:each="catalog : ${catalogList}">
-            <a th:href="@{/card/add}"><p th:text="${catalog.name}"></p></a>
-        </th:block>
-        <p th:text="${message}"></p>
+    <div th:if="${card == null}" id="noMoreCards">
+        <h2 th:if="${error != null}" th:text="${error}"></h2>
+        <a th:href="@{'/catalog/learn?catalogName='+${catalogName}}">Repeat this catalog</a>
+        <a th:href="@{/catalog}">Return to all catalogs</a>
+    </div>
 
-    </th:block>
     <th:block th:if="${card != null}">
-        <div id="card"> <!--th:if="${card != null}"-->
+        <div id="card">
             <p th:if="${isWord}" th:text="${card.word}"></p>
             <p th:unless="${isWord}" th:text="${card.translation}"></p>
         </div>
         <div id="buttons">
-            <a th:href="@{'/learn?id='+${card.id}+'&isWord=false'}">
+            <a th:href="@{'/catalog/learn?catalogName='+${catalogName}+'&i='+${i}+'&isWord=false'}">
                 <button>Translate</button>
             </a>
-            <a th:href="@{'/learn?id='+${card.id+1}+'&isWord=true'}">
+            <a th:href="@{'/catalog/learn?catalogName='+${catalogName}+'&i='+${(i+1)}+'&isWord=true'}">
                 <button>Next</button>
             </a>
         </div>
     </th:block>
-</main>
 
+</main>
 </body>
 </html>

@@ -58,13 +58,6 @@ public class ImplCatalogService implements CatalogService {
     }
 
     @Override
-    public List<CatalogDto> findAll() {
-        return catalogRepository.findAll().stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<CatalogDto> findAllByUser(UserDto userDto) {
         return catalogRepository.findAllByUser(userService.convertToEntity(userDto)).stream()
                 .map(this::convertToDto)
@@ -73,7 +66,7 @@ public class ImplCatalogService implements CatalogService {
 
     public CatalogDto convertToDto(Catalog catalog) {
         int countCard;
-        if (catalog.getCardList()==null || catalog.getCardList().isEmpty()){
+        if (catalog.getCardList() == null || catalog.getCardList().isEmpty()) {
             countCard = 0;
         } else {
             countCard = catalog.getCardList().size();

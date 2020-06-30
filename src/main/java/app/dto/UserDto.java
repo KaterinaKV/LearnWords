@@ -18,12 +18,16 @@ import java.util.List;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class UserDto implements UserDetails {
+
     @NonNull
     private long id;
+
     @NonNull
     private String username;
+
     @NonNull
     private String password;
+
     private List<CatalogDto> catalogList;
 
     @Override

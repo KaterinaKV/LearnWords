@@ -11,11 +11,15 @@ import lombok.NonNull;
 public class CardDto {
 
     private long id;
+
     @NonNull
     private String word;
+
     @NonNull
     private String translation;
+
     private String transcription;
     @NonNull
     private CatalogDto catalogDto;
+
 }

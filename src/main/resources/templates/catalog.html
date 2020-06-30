@@ -4,21 +4,20 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/css/catalog.css}" rel="stylesheet" type="text/css">
-
     <link th:href="@{/css/cardList.css}" rel="stylesheet" type="text/css">
-    <title>LearnWordsOnCards</title>
+    <title th:text="${'Catalog' + catalogName}"></title>
 </head>
 <body>
 <header th:insert="~{fragments/header :: menu}"></header>
 <main>
     <h1>
         <span th:text="${catalogName}"></span>
-        <a th:href="@{'/catalog/learn?catalogName='+${catalogName}}">Learn</a>
+        <a th:if="!${cardList.empty}" th:href="@{'/catalog/learn?catalogName='+${catalogName}}">Learn</a>
     </h1>
-    <!--request.getRequestURI().contains("update");-->
-    <form th:if="${cardDto.id == 0}" method="POST" th:action="@{'/catalog/card/add?catalogName='+${catalogName}}" th:object="${cardDto}" id="addCard"></form>
-
-    <form th:if="${cardDto.id != 0}" method="POST" th:action="@{'/catalog/card/update?catalogName='+${catalogName}}" th:object="${cardDto}" id="updateCard"></form>
+    <form th:if="${cardDto.id == 0}" method="POST" th:action="@{'/catalog/card/add?catalogName='+${catalogName}}"
+          th:object="${cardDto}" id="addCard"></form>
+    <form th:if="${cardDto.id != 0}" method="POST" th:action="@{'/catalog/card/update?catalogName='+${catalogName}}"
+          th:object="${cardDto}" id="updateCard"></form>
 
     <p th:if="${error != null}" th:text="${error}" class="error"></p>
 
@@ -35,14 +34,18 @@
             <td><input type="text" th:field="*{cardDto.word}" form="addCard"/></td>
             <td><input type="text" th:field="*{cardDto.translation}" form="addCard"/></td>
             <td><input type="text" th:field="*{cardDto.transcription}" form="addCard"/></td>
-            <td><button type="submit" form="addCard">Add Card</button></td>
+            <td>
+                <button type="submit" form="addCard">Add Card</button>
+            </td>
         </tr>
         <tr th:if="${cardDto.id != 0}" id="updateForm">
             <td><input type="hidden" th:field="*{cardDto.id}" form="updateCard"/></td>
             <td><input type="text" th:field="*{cardDto.word}" form="updateCard"/></td>
             <td><input type="text" th:field="*{cardDto.translation}" form="updateCard"/></td>
             <td><input type="text" th:field="*{cardDto.transcription}" form="updateCard"/></td>
-            <td><button type="submit" form="updateCard">Update Card</button></td>
+            <td>
+                <button type="submit" form="updateCard">Update Card</button>
+            </td>
         </tr>
         <tr th:each="card : ${cardList}">
             <td th:text="${card.id}"></td>
@@ -50,13 +53,15 @@
             <td th:text="${card.translation}"></td>
             <td th:text="${card.transcription}"></td>
             <td>
-                <a th:href="@{'/catalog/card/update?id='+${card.id}}"><button>Update</button></a>
-                <a th:href="@{'/catalog/card/delete?id='+${card.id}}"><button>Delete</button></a>
+                <a th:href="@{'/catalog/card/update?id='+${card.id}}">
+                    <button>Update</button>
+                </a>
+                <a th:href="@{'/catalog/card/delete?id='+${card.id}}">
+                    <button>Delete</button>
+                </a>
             </td>
         </tr>
     </table>
-
 </main>
-
 </body>
 </html>

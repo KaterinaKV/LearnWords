@@ -1,6 +1,5 @@
 package app.model;
 
-import app.dto.CatalogDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,8 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -31,8 +28,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id")
     @NonNull
     private long id;
+
     @NonNull
     private String username;
+
     @NonNull
     private String password;
 

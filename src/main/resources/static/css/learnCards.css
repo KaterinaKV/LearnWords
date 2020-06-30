@@ -3,23 +3,19 @@
     margin: 50px auto;
     width: 350px;
     height: 200px;
-
     background: #D5D5D5;
     border: 2px solid #42454C;
     box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
 }
-
 #card p{
     margin: auto;
     color: #161A1E;
     font: 32pt Monospace;
 }
-
 #buttons{
     width: 400px;
     margin: 50px auto;
 }
-
 #buttons button{
     width: 150px;
     height: 50px;
@@ -27,7 +23,29 @@
     margin: 0 23.5px;
     background: #9EC6FA;
     border: 2px solid #42454C;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+    cursor: pointer;
 }
-
-/*
-century gothic*/
+#buttons button:hover{
+   border: 1px solid #F5F5F5;
+   box-shadow: none;
+}
+#noMoreCards{
+    margin: 30px auto;
+    width: 500px;
+    background: #161A1E;
+    border: 1px solid #D5D5D5;
+}
+#noMoreCards h2{
+    text-align: center;
+    color: #9EC6FA;
+}
+#noMoreCards a{
+    display: block;
+    padding: 20px;
+    text-align: center;
+    font: 18pt Monospace;
+}
+#noMoreCards a{
+    text-decoration: underline;
+}

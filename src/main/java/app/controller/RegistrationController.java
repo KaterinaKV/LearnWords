@@ -26,7 +26,7 @@ public class RegistrationController {
     }
 
     @GetMapping
-    public String showRegisterForm(Model model) {
+    public String showRegistrationForm(Model model) {
         model.addAttribute("userDto", new UserDto());
         return "register";
     }
@@ -35,10 +35,10 @@ public class RegistrationController {
     public String processRegistration(Model model, @ModelAttribute("userDto") UserDto userDto) {
         String encodedPassword = passwordEncoder.encode(userDto.getPassword());
         userDto.setPassword(encodedPassword);
-        try{
+        try {
             userService.add(userDto);
             return "redirect:/login";
-        } catch (InvalidInputDataException ex){
+        } catch (InvalidInputDataException ex) {
             model.addAttribute("error", ex.getMessage());
             return "register";
         }

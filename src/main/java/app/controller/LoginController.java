@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
 
     @GetMapping
-    public String showSingInForm(Model model, @RequestParam(name = "error", required = false) String error) {
+    public String showLoginForm(Model model, @RequestParam(name = "error", required = false) String error) {
         model.addAttribute("userDto", new UserDto());
         if (error != null) {
             model.addAttribute("error", error);

@@ -15,5 +15,4 @@ public class LogoutController {
         httpSession.invalidate();
         return "redirect:/login";
     }
-
 }

@@ -7,4 +7,3 @@ public class InvalidInputDataException extends RuntimeException {
     }
 
 }
-

@@ -11,4 +11,5 @@ public interface CatalogRepository extends JpaRepository<Catalog, Long> {
     Catalog findByNameAndUser(String name, User user);
 
     List<Catalog> findAllByUser(User user);
+
 }
