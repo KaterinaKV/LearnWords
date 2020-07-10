@@ -18,13 +18,22 @@
     <th:block th:if="${card != null}">
         <div id="card">
             <p th:if="${isWord}" th:text="${card.word}"></p>
-            <p th:unless="${isWord}" th:text="${card.translation}"></p>
+            <th:block th:unless="${isWord}">
+                <p th:text="${card.translation}"></p>
+                <br>
+                <span th:text="${card.transcription}"></span>
+            </th:block>
         </div>
         <div id="buttons">
-            <a th:href="@{'/catalog/learn?catalogName='+${catalogName}+'&i='+${i}+'&isWord=false'}">
+            <a th:if="${isWord}"
+               th:href="@{'/catalog/learn?catalogName='+${catalogName}+'&i='+${i}+'&isWord=false&order='+${order}}">
                 <button>Translate</button>
             </a>
-            <a th:href="@{'/catalog/learn?catalogName='+${catalogName}+'&i='+${(i+1)}+'&isWord=true'}">
+            <a th:unless="${isWord}"
+               th:href="@{'/catalog/learn?catalogName='+${catalogName}+'&i='+${i}+'&isWord=true&order='+${order}}">
+                <button>Word</button>
+            </a>
+            <a th:href="@{'/catalog/learn?catalogName='+${catalogName}+'&i='+${(i+1)}+'&isWord=true&order='+${order}}">
                 <button>Next</button>
             </a>
         </div>

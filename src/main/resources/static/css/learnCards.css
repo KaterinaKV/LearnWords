@@ -1,5 +1,6 @@
 #card{
     display: flex;
+    position: relative;
     margin: 50px auto;
     width: 350px;
     height: 200px;
@@ -11,6 +12,14 @@
     margin: auto;
     color: #161A1E;
     font: 32pt Monospace;
+}
+#card span{
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    color: #5D5D5D;
+    text-align: center;
+    font: 20pt Monospace;
 }
 #buttons{
     width: 400px;
