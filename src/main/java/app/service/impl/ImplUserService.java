@@ -30,7 +30,11 @@ public class ImplUserService implements UserService {
 
     @Override
     public UserDto findByUsername(String username) {
-        return convertToDto(userRepository.findByUsername(username));
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return null;
+        }
+        return convertToDto(user);
     }
 
     public List<UserDto> findAll() {

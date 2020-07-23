@@ -10,12 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ImplUserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
-    private final UserService userService;
-
     @Autowired
-    public ImplUserDetailsService(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) {

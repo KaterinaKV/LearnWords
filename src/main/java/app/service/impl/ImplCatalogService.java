@@ -38,7 +38,11 @@ public class ImplCatalogService implements CatalogService {
     }
 
     public CatalogDto findById(long id) {
-        return convertToDto(catalogRepository.findById(id).orElse(null));
+        Catalog catalog = catalogRepository.findById(id).orElse(null);
+        if (catalog == null){
+            return null;
+        }
+        return convertToDto(catalog);
     }
 
     @Override
@@ -90,7 +94,7 @@ public class ImplCatalogService implements CatalogService {
     private void checkValid(CatalogDto catalogDto) {
         if (catalogDto.getName().trim().isEmpty()) {
             throw new InvalidInputDataException("Name catalog is required.");
-        } else if (!catalogDto.getName().matches("[a-zA-Zа-яА-ЯёЁ\\s]{1,100}")) {
+        } else if (!catalogDto.getName().matches("[a-zA-Zа-яА-ЯёЁ0-9\\s]{1,100}")) {
             throw new InvalidInputDataException("Name catalog contains unauthorized symbols.");
         }
         for (CatalogDto catalog : findAllByUser(catalogDto.getUserDto())) {
