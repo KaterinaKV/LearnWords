@@ -39,7 +39,7 @@ public class Catalog {
     private List<Card> cardList;
 
     @NonNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "catalogList")
     private User user;
 
