@@ -1,0 +1,63 @@
+#cardList{
+    margin: 20px auto;
+    width: 90%;
+    background: #161A1E;
+    border: 1px solid #42454C;
+}
+tr{
+    height: 30px;
+}
+th{
+    font: 18pt Corbel;
+    color: #D5D5D5;
+    background: #161A1E;
+}
+td{
+    padding: 0;
+    height: 40px;
+    font: 16pt Monospace;
+    text-align: center;
+    color: #161A1E;
+    background: #D5D5D5;
+}
+table a{
+    color: #161A1E;
+}
+table a:hover{
+    color: #161A1E;
+}
+table button{
+    width: 44%;
+    height: 30px;
+    margin: 0;
+    padding: 0 5px;
+    font: 14pt Corbel;
+    background: #9EC6FA;
+    border: 1px solid #9EC6FA;
+    cursor: pointer;
+}
+table button:hover{
+    color: #F5F5F5;
+}
+#updateForm button, #addForm button{
+    width: 100%;
+    height: 30px;
+    vertical-align: top;
+}
+#updateForm input, #addForm input{
+    outline: 0 !important;
+    width: 90%;
+    height: 30px;
+    font: 14pt Monospace;
+    padding: 0 5%;
+    margin: 0;
+    background: #F5F5F5;
+    border: none;
+    vertical-align: top;
+}
+#updateForm td, #addForm td{
+    height: 30px;
+}
+th:last-child{
+    min-width: 150px;
+}

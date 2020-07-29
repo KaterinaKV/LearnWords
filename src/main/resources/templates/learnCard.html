@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/learnCards.css}" rel="stylesheet" type="text/css">
+    <title>Learn Cards</title>
+</head>
+<body>
+<header th:insert="~{fragments/header :: menu}"></header>
+<main>
+    <div th:if="${card == null}" id="noMoreCards">
+        <h2 th:if="${error != null}" th:text="${error}"></h2>
+        <a th:href="@{'/catalog/learn?catalogName='+${catalogName}}">Repeat this catalog</a>
+        <a th:href="@{/catalog}">Return to all catalogs</a>
+    </div>
+
+    <th:block th:if="${card != null}">
+        <div id="card">
+            <p th:if="${isWord}" th:text="${card.word}"></p>
+            <th:block th:unless="${isWord}">
+                <p th:text="${card.translation}"></p>
+                <br>
+                <span th:text="${card.transcription}"></span>
+            </th:block>
+        </div>
+        <div id="buttons">
+            <a th:if="${isWord}"
+               th:href="@{'/catalog/learn?catalogName='+${catalogName}+'&i='+${i}+'&isWord=false&order='+${order}}">
+                <button>Translate</button>
+            </a>
+            <a th:unless="${isWord}"
+               th:href="@{'/catalog/learn?catalogName='+${catalogName}+'&i='+${i}+'&isWord=true&order='+${order}}">
+                <button>Word</button>
+            </a>
+            <a th:href="@{'/catalog/learn?catalogName='+${catalogName}+'&i='+${(i+1)}+'&isWord=true&order='+${order}}">
+                <button>Next</button>
+            </a>
+        </div>
+    </th:block>
+
+</main>
+</body>
+</html>

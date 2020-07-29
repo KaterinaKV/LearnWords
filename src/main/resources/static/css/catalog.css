@@ -1,0 +1,18 @@
+h1{
+    text-align: left;
+    margin: 0;
+    padding: 30px 50px;
+}
+h1 a{
+    font: 0.5em Monospace;
+    padding: 0 55px;
+}
+h1 a:hover{
+    text-decoration: underline;
+}
+.error{
+    color: #FAD29E;
+    text-align: center;
+    padding: 0;
+    margin: 5px;
+}

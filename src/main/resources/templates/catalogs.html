@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/catalogs.css}" rel="stylesheet" type="text/css">
+    <title>All catalogs</title>
+</head>
+<body>
+<header th:insert="~{fragments/header :: menu}"></header>
+<main>
+
+    <form th:if="${catalogDto.id == 0}" method="POST" th:action="@{/catalog/add}" th:object="${catalogDto}"
+          class="catalogForm">
+        <h2>Create new catalog</h2>
+        <label for="name">Input name</label>
+        <input type="text" id="name" th:field="*{name}"/>
+        <input type="submit" value="Add Catalog"/>
+        <p class="error" th:text="${error}"></p>
+    </form>
+
+    <form th:if="${catalogDto.id != 0}" method="POST" th:action="@{/catalog/update}" th:object="${catalogDto}"
+          class="catalogForm">
+        <h2>Rename catalog</h2>
+        <input type="hidden" th:field="*{id}"/>
+        <label for="newName">Input name</label>
+        <input type="text" id="newName" th:field="*{name}"/>
+        <input type="submit" value="Rename Catalog"/>
+        <p class="error" th:text="${error}"></p>
+    </form>
+
+    <div th:if="!${catalogList.empty}" id="catalogList">
+        <ul>
+            <li th:each="catalog : ${catalogList}" th:class="${catalog.countCard >0} ? fullCatalog : emptyCatalog">
+                <a th:href="@{'/catalog/show?catalogName='+${catalog.name}}" th:text="${catalog.name}"></a>
+                <div class="functional">
+                    <a th:href="@{'/catalog/update?catalogName='+${catalog.name}}">Update</a>
+                    <a th:href="@{'/catalog/delete?catalogName='+${catalog.name}}">Delete</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <p th:if="${catalogList.empty}">You have no any catalog yet. Create your first catalog.</p>
+</main>
+</body>
+</html>
