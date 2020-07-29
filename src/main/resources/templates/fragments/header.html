@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="menu">
+    <a th:href="@{/index}"><img th:src="@{/images/logo.png}"></a>
+    <th:block th:if="!${#request.userPrincipal}">
+        <a th:href="@{/login}">Log In</a>
+        <a th:href="@{/register}">Sing Up</a>
+    </th:block>
+    <th:block th:if="${#request.userPrincipal}">
+        <a th:href="@{/catalog}">My catalogs</a>
+        <a class="blank"></a>
+        <a th:href="@{/logout}" id="logout">Logout</a>
+    </th:block>
+</th:block>
+</body>
+</html>
