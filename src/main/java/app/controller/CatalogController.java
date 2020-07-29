@@ -16,11 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-
 @Controller
 @RequestMapping("/catalog")
 public class CatalogController {
@@ -60,7 +55,6 @@ public class CatalogController {
                                      @RequestParam("catalogName") String catalogName) {
         model.addAttribute("cardDto", new CardDto());
         model.addAttribute("catalogName", catalogName);
-        //model.addAttribute("order", new Date().getTime());
         model.addAttribute("cardList", cardService.findAllByCatalog(catalogService.findByNameAndUser(catalogName, userDto)));
         return "catalog";
     }
@@ -90,38 +84,8 @@ public class CatalogController {
     @GetMapping("/delete")
     public String processDeleteCatalog(@RequestParam("catalogName") String catalogName,
                                        @AuthenticationPrincipal UserDto userDto) {
-        catalogService.delete(catalogService.findByNameAndUser(catalogName, userDto));
-        return "redirect:/catalog";
-    }
-
-    @GetMapping("/learn")
-    public String processLearnCards(Model model, @AuthenticationPrincipal UserDto userDto,
-                                    @RequestParam(value = "catalogName") String catalogName,
-                                    @RequestParam(value = "i", required = false) Integer i,
-                                    @RequestParam(value = "isWord", required = false) Boolean isWord,
-                                    @RequestParam(value = "order", required = false) Long order) {
-        model.addAttribute("catalogName", catalogName);
         CatalogDto catalogDto = catalogService.findByNameAndUser(catalogName, userDto);
-        List<CardDto> cardList = cardService.findAllByCatalog(catalogDto);
-        if (order ==null){
-            order = new Date().getTime();
-        }
-        Collections.shuffle(cardList, new Random(order));
-
-        if (i == null) {
-            model.addAttribute("isWord", true);
-            model.addAttribute("card", cardList.get(0));
-            model.addAttribute("i", 0);
-        } else {
-            model.addAttribute("isWord", isWord);
-            if (cardList.size() <= i) {
-                model.addAttribute("error", "Catalog cards are finished");
-            } else {
-                model.addAttribute("card", cardList.get(i));
-                model.addAttribute("i", i);
-            }
-        }
-        model.addAttribute("order", order);
-        return "learnCard";
+        catalogService.delete(catalogDto);
+        return "redirect:/catalog";
     }
 }

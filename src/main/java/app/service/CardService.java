@@ -23,4 +23,5 @@ public interface CardService {
     CardDto convertToDto(Card card);
 
     Card convertToEntity(CardDto cardDto);
+
 }

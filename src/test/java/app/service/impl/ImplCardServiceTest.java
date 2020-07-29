@@ -9,7 +9,6 @@ import app.model.Card;
 import app.model.Catalog;
 import app.model.User;
 import app.service.CatalogService;
-import app.service.UserService;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -211,7 +210,6 @@ class ImplCardServiceTest {
             isCardsEquals(convertedCardDto, cardToConvert);
         }
 
-
         @Test
         void convertToEntity() {
             when(mockCatalogService.convertToEntity(testData.getCatalogDto())).thenReturn(testData.getCatalog());
@@ -221,7 +219,6 @@ class ImplCardServiceTest {
 
             isCardsEquals(cardDtoToConvert, convertedCard);
         }
-
     }
 
     static void isCardsEquals(CardDto cardDto, Card card) {
@@ -236,7 +233,6 @@ class ImplCardServiceTest {
             isCardsEquals(cardsDto.get(i), cards.get(i));
         }
     }
-
 
     private static class TestData {
         private User getUser() {
@@ -283,8 +279,5 @@ class ImplCardServiceTest {
             cardList.add(card);
             return cardList;
         }
-
-
-
     }
 }

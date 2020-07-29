@@ -16,4 +16,5 @@ public interface UserService {
     UserDto convertToDto(User user);
 
     User convertToEntity(UserDto userDto);
+
 }

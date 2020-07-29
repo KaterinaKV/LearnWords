@@ -19,6 +19,7 @@ public class CardDto {
     private String translation;
 
     private String transcription;
+
     @NonNull
     private CatalogDto catalogDto;
 

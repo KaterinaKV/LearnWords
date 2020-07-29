@@ -31,7 +31,9 @@ class CardRepositoryTest {
     @Test
     void findAllByCatalog_Success() {
         User user = testData.getUser();
-        Catalog catalog = testData.getCatalog();
+        Catalog catalog = new Catalog();
+        catalog.setName("catalog");
+        catalog.setUser(user);
         Card card = new Card();
         card.setWord("word");
         card.setTranslation("слово");
@@ -49,7 +51,9 @@ class CardRepositoryTest {
     @Test
     void findAllByCatalog_Failed() {
         User user = testData.getUser();
-        Catalog catalog = testData.getCatalog();
+        Catalog catalog = new Catalog();
+        catalog.setName("catalog");
+        catalog.setUser(user);
         entityManager.persistAndFlush(user);
         entityManager.persistAndFlush(catalog);
 
@@ -65,13 +69,6 @@ class CardRepositoryTest {
             user.setUsername("login");
             user.setPassword("password");
             return user;
-        }
-
-        private Catalog getCatalog() {
-            Catalog catalog = new Catalog();
-            catalog.setName("catalog1");
-            catalog.setUser(getUser());
-            return catalog;
         }
     }
 }

@@ -31,7 +31,7 @@ class CatalogRepositoryTest {
     void findByNameAndUser_Success() {
         User user = testData.getUser();
         Catalog catalog = new Catalog();
-        catalog.setName("catalog1");
+        catalog.setName("catalog");
         catalog.setUser(user);
         entityManager.persistAndFlush(user);
         entityManager.persistAndFlush(catalog);
@@ -55,7 +55,7 @@ class CatalogRepositoryTest {
     void findAllByUser_Success() {
         User user = testData.getUser();
         Catalog catalog = new Catalog();
-        catalog.setName("catalog1");
+        catalog.setName("catalog");
         catalog.setUser(user);
         entityManager.persistAndFlush(user);
         entityManager.persistAndFlush(catalog);

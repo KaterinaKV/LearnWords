@@ -5,6 +5,7 @@ import app.dto.CatalogDto;
 import app.dto.UserDto;
 import app.exception.InvalidInputDataException;
 import app.model.Catalog;
+import app.model.User;
 import app.service.CatalogService;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +30,20 @@ public class ImplCatalogService implements CatalogService {
     @Override
     public CatalogDto add(CatalogDto catalogDto) {
         checkValid(catalogDto);
-        return convertToDto(catalogRepository.save(convertToEntity(catalogDto)));
+        Catalog catalog = catalogRepository.save(convertToEntity(catalogDto));
+        return convertToDto(catalog);
     }
 
     @Override
     public CatalogDto findByNameAndUser(String name, UserDto userDto) {
-        return convertToDto(catalogRepository.findByNameAndUser(name, userService.convertToEntity(userDto)));
+        User user = userService.convertToEntity(userDto);
+        Catalog catalog = catalogRepository.findByNameAndUser(name, user);
+        return convertToDto(catalog);
     }
 
     public CatalogDto findById(long id) {
         Catalog catalog = catalogRepository.findById(id).orElse(null);
-        if (catalog == null){
+        if (catalog == null) {
             return null;
         }
         return convertToDto(catalog);

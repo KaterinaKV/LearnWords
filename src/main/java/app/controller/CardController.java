@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+
 @Controller
 @RequestMapping("/catalog/card")
 public class CardController {
@@ -31,6 +33,7 @@ public class CardController {
 
     @GetMapping("/add")
     public String getCatalogPage(Model model, @RequestParam("catalogName") String catalogName) {
+        model.addAttribute("cardList", new ArrayList<CardDto>());
         model.addAttribute("catalogName", catalogName);
         model.addAttribute("cardDto", new CardDto());
         return "catalog";

@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,11 +34,11 @@ public class Catalog {
     @NonNull
     private String name;
 
-    @OneToMany(mappedBy = "catalog", cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "catalog")
     private List<Card> cardList;
 
     @NonNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "catalogList")
     private User user;
 

@@ -21,4 +21,5 @@ public interface CatalogService {
     CatalogDto convertToDto(Catalog catalog);
 
     Catalog convertToEntity(CatalogDto catalogDto);
+
 }

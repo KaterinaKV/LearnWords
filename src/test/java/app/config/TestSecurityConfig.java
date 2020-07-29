@@ -1,21 +1,25 @@
 package app.config;
 
 import app.service.impl.ImplUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@Profile("!test")
-@Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@Profile("test")
+@TestConfiguration
+@EnableWebSecurity
+public class TestSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private ImplUserDetailsService userDetailsService;
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new ImplUserDetailsService();
+    }
 
     @Bean
     public BCryptPasswordEncoder encoder() {
@@ -24,29 +28,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService)
+        auth.userDetailsService(userDetailsService())
                 .passwordEncoder(encoder());
     }
 
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .authorizeRequests()
-                .antMatchers("/catalog", "/catalog/**", "/logout")
-                .hasRole("USER")
+    public void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/logout", "/catalog", "/catalog/**")
+                .authenticated()
                 .antMatchers("/", "/**")
                 .permitAll()
-
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/catalog")
-                .failureUrl("/login?error=Check your input data")
-
+                .httpBasic()
                 .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
-                .invalidateHttpSession(true);
+                .csrf().disable();
     }
 }
